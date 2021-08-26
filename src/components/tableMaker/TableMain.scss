@@ -1,0 +1,114 @@
+@import "./TableMainColor.scss";
+
+.load__wrapper{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.25);
+  animation-name: appear;
+  animation-duration: 300ms;
+}
+.table__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2em 5em;
+  flex: 1 0 auto;
+  .selector__group {
+    flex-direction: row;
+    .selector__label {
+      font-size: 1.2em;
+      font-weight: 700;
+      margin: 0 1em;
+    }
+    .selector__input,
+    .selector__search__control {
+      margin: 1em 0;
+      font-size: 1.3em !important;
+      border-radius: 0.1em;
+    }
+    .selector__input {
+      min-width: 600px;
+    }
+    .selector__search__control {
+      min-width: 80px;
+      text-align: center;
+      padding: 0.2em 0;
+    }
+  }
+  .main__table {
+    min-width: 80vw;
+    font-size: 1.1em;
+    font-family: "Open Sans", sans-serif;
+    padding: 1em;
+    .table__nothing {
+      font-size: 1.3em;
+    }
+    th {
+      min-width: 250px !important;
+      border: none;
+      position: relative;
+      text-transform: capitalize;
+    }
+
+    th:before,
+    th:after {
+      border: 4px solid transparent;
+      content: "";
+      display: block;
+      height: 0;
+      right: 10%;
+      top: 50%;
+      position: absolute;
+      width: 0;
+    }
+    th:before {
+      border-bottom-color: #fff;
+      margin-top: -9px;
+    }
+
+    th:after {
+      border-top-color: #fff;
+      margin-top: 1px;
+    }
+    td {
+      padding: 0 1em;
+      border-left: 0;
+      border-right: 0;
+      max-width: 600px;
+    }
+  }
+  .paginator__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 1em 0 0;
+    .pagination__select,
+    .pagination__button {
+      border-radius: 0.2em;
+      margin: 0 0.1em;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pagination__select {
+      min-width: 50px;
+      font-size: 1.5em;
+      text-align: center;
+      text-indent: 5px;
+    }
+    .pagination__button {
+      font-size: 1.3em;
+      min-width: 30px;
+    }
+  }
+}

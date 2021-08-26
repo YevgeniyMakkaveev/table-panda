@@ -30,8 +30,9 @@ const tableSlice = createSlice({
     initialData: null,
     shownData: null,
     prevField: null,
+    searchField: "title",
     asc: true,
-    error: null,
+    errorMsg: null,
     loading: null,
   },
   reducers: {
@@ -48,13 +49,15 @@ const tableSlice = createSlice({
         const order = !asc;
         state.shownData = sortIt(shownData, order, field, fieldType);
         state.asc = order;
-        console.log(state.shownData);
       } else {
         state.shownData = sortIt(shownData, true, field, fieldType);
         state.asc = true;
         state.prevField = field;
-        console.log(state.shownData);
       }
+    },
+    getSearchField(state, action) {
+      const { field } = action.payload;
+      state.searchField = field;
     },
   },
   extraReducers: {
@@ -62,9 +65,13 @@ const tableSlice = createSlice({
       state.loading = true;
       state.errorMsg = null;
     },
+    [fetchTable.rejected]: (state, action) => {
+      state.loading = false;
+      state.errorMsg = action.payload;
+    },
   },
 });
 
 const { getInitList } = tableSlice.actions;
-export const { sortTable } = tableSlice.actions;
+export const { sortTable, getSearchField } = tableSlice.actions;
 export default tableSlice.reducer;

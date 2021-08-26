@@ -5,25 +5,28 @@ const MakeTable = ({ data }) => {
   const dispatch = useDispatch();
   const { initialData } = useSelector((state) => state.table);
   const labels = Object.keys(initialData[0]);
-  let labelId = 1000;
+  const fieldMap = labels.filter((el) => {
+    return el !== "id";
+  });
+
+  let labelId = 1;
+  let innerId = 1;
 
   const sortMe = (field, fieldType) => {
     dispatch(sortTable({ field: field, fieldType: fieldType }));
   };
+  const makeRow = (head, body) => {
+    return head.map((label) => (
+      <td key={`${innerId++}+rowInner`}>{body[label]}</td>
+    ));
+  };
 
   const content = data[0] ? (
-    data.map((el) => (
-      <tr key={el.id}>
-        <td>{el.userId} </td>
-        <td>{el.title}</td>
-        <td>{el.body}</td>
-      </tr>
-    ))
+    data.map((el) => <tr key={`${el.id}+rowOuter`}>{makeRow(fieldMap, el)}</tr>)
   ) : (
-    <tr>
-      <td>Nothing is found</td>
-    </tr>
+    <tr className="table__nothing">Nothing is found</tr>
   );
+
   const head = labels
     .filter((item) => item !== "id")
     .map((el) => (
@@ -31,14 +34,14 @@ const MakeTable = ({ data }) => {
         onClick={() => {
           sortMe(el, typeof data[1][el]);
         }}
-        key={labelId++}
+        key={`${labelId++}+tableHead`}
       >
         {el}
       </th>
     ));
 
   return (
-    <table>
+    <table className="main__table table__color">
       <thead>
         <tr>{head}</tr>
       </thead>

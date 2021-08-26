@@ -10,7 +10,7 @@ export const sortIt = (arr, asc, field, fieldType) => {
       });
     }
   } else if (fieldType === "string") {
-    if (!asc) {
+    if (asc) {
       return arr.sort((a, b) => a[field].localeCompare(b[field]));
     } else {
       return arr.sort((a, b) => b[field].localeCompare(a[field]));

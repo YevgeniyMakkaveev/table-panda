@@ -1,0 +1,27 @@
+$table-background-color: #ffffff;
+$table-even-background-color: darken($table-background-color, 4%);
+$table-header-background-color: #2f2f2f;
+.input__gray__color {
+  border: gray solid 0.02em;
+  background-color: #f3f3f3;
+}
+.table__color {
+  th {
+    background-color: $table-header-background-color;
+    color: $table-background-color;
+  }
+  tr:nth-child(even) {
+    background: $table-even-background-color;
+  }
+  td {
+    border: solid 1px #d8d8d8;
+  }
+}
+.pagination__color {
+  border: $table-header-background-color solid 0.02em;
+  background-color: gray;
+}
+.active__pagination {
+  background-color: $table-header-background-color !important;
+  color: white !important;
+}
