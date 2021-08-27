@@ -29,7 +29,7 @@ const tableSlice = createSlice({
   initialState: {
     initialData: null,
     shownData: null,
-    prevField: null,
+    prevField: "userId",
     searchField: "title",
     asc: true,
     errorMsg: null,

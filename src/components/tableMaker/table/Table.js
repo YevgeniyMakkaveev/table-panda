@@ -32,7 +32,7 @@ const MakeTable = ({ data }) => {
     .map((el) => (
       <th
         onClick={() => {
-          sortMe(el, typeof data[1][el]);
+          sortMe(el, typeof initialData[1][el]);
         }}
         key={`${labelId++}+tableHead`}
       >

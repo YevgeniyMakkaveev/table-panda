@@ -23,7 +23,6 @@ const TableMain = () => {
 
   const getFilter = (e) => {
     getSearch(e.target.value);
-    console.log(search);
     setCurrentPage(1);
   };
 

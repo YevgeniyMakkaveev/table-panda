@@ -56,6 +56,7 @@
       border: none;
       position: relative;
       text-transform: capitalize;
+      cursor: pointer;
     }
 
     th:before,
@@ -109,6 +110,7 @@
     .pagination__button {
       font-size: 1.3em;
       min-width: 30px;
+      cursor: pointer;
     }
   }
 }
