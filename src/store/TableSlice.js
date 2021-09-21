@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { sortIt } from "./helpers/sort";
+import { changeNull } from "./helpers/changeNull";
 
 export const fetchTable = createAsyncThunk(
   "table/getInit",
@@ -16,6 +17,39 @@ export const fetchTable = createAsyncThunk(
       dispatch(
         getInitList({
           res: data,
+          searchField: "title",
+        })
+      );
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchFbi = createAsyncThunk(
+  "table/getInit",
+  async function (_, { rejectWithValue, dispatch }) {
+    try {
+      const response = await fetch(`https://api.fbi.gov/wanted/v1/list`);
+      if (!response.ok) {
+        throw new Error("Server Error");
+      }
+      const data = await response.json();
+      console.log(data);
+      const res = [];
+      data.items.forEach((el) =>
+        res.push({
+          race: changeNull(el.race, "string"),
+          hair: changeNull(el.hair, "string"),
+          description: changeNull(el.description, "string"),
+          details: changeNull(el.details, "string"),
+        })
+      );
+      console.log(res);
+      dispatch(
+        getInitList({
+          res: res,
+          searchField: "description",
         })
       );
     } catch (error) {
@@ -37,8 +71,9 @@ const tableSlice = createSlice({
   },
   reducers: {
     getInitList(state, action) {
-      const { res } = action.payload;
+      const { res, searchField } = action.payload;
       state.loading = false;
+      state.searchField = searchField;
       state.initialData = res;
       state.shownData = res;
     },
@@ -66,6 +101,14 @@ const tableSlice = createSlice({
       state.errorMsg = null;
     },
     [fetchTable.rejected]: (state, action) => {
+      state.loading = false;
+      state.errorMsg = action.payload;
+    },
+    [fetchFbi.pending]: (state) => {
+      state.loading = true;
+      state.errorMsg = null;
+    },
+    [fetchFbi.rejected]: (state, action) => {
       state.loading = false;
       state.errorMsg = action.payload;
     },

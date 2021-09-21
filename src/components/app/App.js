@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchTable } from "../../store/TableSlice";
+import { fetchTable, fetchFbi } from "../../store/TableSlice";
 import TableMaker from "../tableMaker";
 import Head from "../head";
 import "./App.scss";
@@ -10,9 +10,11 @@ function App() {
   useEffect(() => {
     dispatch(fetchTable());
   }, [dispatch]);
+
   return (
     <div className="App">
       <Head />
+      <button onClick={() => dispatch(fetchFbi())}>FBI</button>
       <TableMaker />
     </div>
   );
